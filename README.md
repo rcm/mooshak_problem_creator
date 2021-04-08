@@ -7,10 +7,9 @@ You need to install markdown
     python -m pip install markdown
 
 ## Description
-* Check `teste.txt` to have a look at the syntax
 * Descriptions may use markdown. Check its syntax [here!](https://daringfireball.net/projects/markdown/syntax)
-* You may use `parser.py` to read one or more files in the DSL and generate the problem
-* You may look at `AASB_ficha2.py` and `CP_ficha3.py` to take a look of some examples
+* You may use `moopec.py` to read one or more files in the DSL and generate the problem
+* The `examples` folder has some examples
 * Please feel free to install `feedback.tcl` on `~mooshak/packages/utils/` to have a nice feedback (courtesy of *Pedro Ribeiro*)
 * After generating the folders containing the problems, simply copy them to `~mooshak/data/contests/YOUR_CONTEST/problems`
 
