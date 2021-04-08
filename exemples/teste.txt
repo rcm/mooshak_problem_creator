@@ -1,0 +1,119 @@
+NAME	problema 1
+LETTER	F3Ex1
+TESTS
+	INPUT	10 20 30
+	INPUT	70 80 90
+	FEEDBACK	boo!
+END
+TESTS
+	INPUT	15 25 35
+END
+TESTS
+	LONGINPUT
+12
+13
+14
+15
+END
+	LONGINPUT
+21
+22
+23
+24
+25
+26
+27
+END
+	FEEDBACK	baa!
+END
+SOLVER	lambda s: sum(int(x) ** 2 for x in s.split())
+DESCRIPTION
+# Sum a list of numbers
+
+Create a program that:
+
+-  reads a bunch of numbers and
+-  prints the sum of their squares
+
+END
+POINTS 200
+END
+
+NAME	problema 2
+LETTER	F3Ex2
+TESTS
+	INPUT	10 20 30
+	INPUT	70 80 90
+	FEEDBACK	boo!
+END
+SOLVER	lambda s: sum(int(x) for x in s.split())
+DESCRIPTION
+# Sum a list of numbers
+
+Create a program that:
+
+ *   reads a bunch of numbers and
+ *   prints the sum of their numbers
+END
+END
+
+NAME	Tradução
+LETTER	F3Ex3
+TESTS
+	INPUT	ATCG
+	INPUT	ATCGGT
+	INPUT	atcttgattccgtgcta
+	INPUT	TTAAATCGCGGTGGAGCATGTG
+	FEEDBACK	Exemplos de tradução
+END
+TESTS
+	INPUT GGG
+	INPUT TGGAGACTCA
+	INPUT TTTCAGCAGGTGCTGAG
+	INPUT ATTCATACGTTCCGCGGTGTGGGC
+	INPUT GGTGAATATGGTGCGTCAGATTCTAGGTGTG
+	INPUT CTGTAGGAAACGACCAATCCAGATGAATAGGTAACATG
+	INPUT TTCCGTAGCCCATTTACAGCCGAGTCGGACATGTGCACAGCGAAC
+	INPUT AAAATGAACTTACAACTTTCCACCTGATCACGGAAGCGATGAGCAATCGTAT
+	INPUT GGTGGCACTGCCGCGTTCTTTAATAGGACGCAGAAACCGGCGAGTGGTTTCGGTAGCGC
+	INPUT TTTAACGGTCGGTCGTCTTTAAGTCACGCGGCTCACCCGGGACACGTTTAGACCCGTCAGCACATA
+	INPUT TTTTAATCAGTAGGTTCGAGTTACGACGAGAACAAGTTAGCCGTAGCACCTCTATAAAACGATTGGGCGGAGC
+	INPUT CTTTTATGATGGTTCGACGAAGACTATGACGCCGAAAGCGTGAACGCACAAGGAAACCGAATCTTTGCAAGCCAGGCTGC
+	INPUT CATGCGTATTGATGAAGGTGGCGATCTGATAGTCCAGGTTGGGGCAAATCTTAATTGGAGCATCTCAGACAAGCTGGAAGCCTTCTG
+	INPUT ATCCGTGTATGTACGGTATGGATTTTAATTGCAGCACGCAACGGCGCTGTCGGCCAGATGTACCGAATTACCCAAGTTTACCCGCTTTACATCG
+END
+IMPORT dna_translate
+SOLVER dna_translate_frame
+DESCRIPTION
+# Tradução
+
+Escreva um programa que leia uma cadeia de DNA e a traduza para aminoácidos.
+
+Utilize o seguinte dicionário para o ajudar a fazer a tradução:
+```
+gencode = {
+    'ATA':'I', 'ATC':'I', 'ATT':'I', 'ATG':'M',
+    'ACA':'T', 'ACC':'T', 'ACG':'T', 'ACT':'T',
+    'AAC':'N', 'AAT':'N', 'AAA':'K', 'AAG':'K',
+    'AGC':'S', 'AGT':'S', 'AGA':'R', 'AGG':'R',
+    'CTA':'L', 'CTC':'L', 'CTG':'L', 'CTT':'L',
+    'CCA':'P', 'CCC':'P', 'CCG':'P', 'CCT':'P',
+    'CAC':'H', 'CAT':'H', 'CAA':'Q', 'CAG':'Q',
+    'CGA':'R', 'CGC':'R', 'CGG':'R', 'CGT':'R',
+    'GTA':'V', 'GTC':'V', 'GTG':'V', 'GTT':'V',
+    'GCA':'A', 'GCC':'A', 'GCG':'A', 'GCT':'A',
+    'GAC':'D', 'GAT':'D', 'GAA':'E', 'GAG':'E',
+    'GGA':'G', 'GGC':'G', 'GGG':'G', 'GGT':'G',
+    'TCA':'S', 'TCC':'S', 'TCG':'S', 'TCT':'S',
+    'TTC':'F', 'TTT':'F', 'TTA':'L', 'TTG':'L',
+    'TAC':'Y', 'TAT':'Y', 'TAA':'_', 'TAG':'_',
+    'TGC':'C', 'TGT':'C', 'TGA':'_', 'TGG':'W'}
+```
+
+## Input
+Uma linha com uma cadeia de DNA.
+## Output
+Uma linha com a tradução dessa cadeia numa cadeia de aminoácidos.
+END
+POINTS 100
+END

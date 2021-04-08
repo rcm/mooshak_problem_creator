@@ -1,0 +1,44 @@
+NAME     Summing a bunch of  numbers
+LETTER   A
+CODE
+def gen_list(size, min_val, max_val):
+	import random
+	return lambda: ' '.join(str(random.randint(min_val, max_val))
+		for i in range(size))
+pequeno = gen_list(10, 1, 10)
+medio = gen_list(100, 1, 100)
+END
+CODE
+soma_quad = lambda s: sum(int(x) ** 2 for x in s.split())
+END
+SOLVER	soma_quad
+TESTS
+	INPUT	10 20 30
+	LONGINPUT
+12
+13
+END
+	FEEDBACK	Examples given in the problem description
+	SHOW
+END
+TESTS
+	INPUT	15 25 35
+END
+TESTS
+	INPUTGEN 10 pequeno
+	FEEDBACK small tests
+END
+TESTS
+	INPUTGEN 10 medio
+	FEEDBACK larger tests
+END
+DESCRIPTION
+# Sum a list of numbers
+
+Create a program that:
+
+-  reads several numbers and
+-  prints the sum of their squares
+END
+POINTS 100
+END

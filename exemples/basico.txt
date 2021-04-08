@@ -1,0 +1,44 @@
+NAME	Problema exemplo
+LETTER	Ficha1
+TESTS
+	INPUT	3 4
+	INPUT	10 20
+	INPUT	70 80
+	FEEDBACK	Exemplos
+END
+TESTS
+	INPUT	15 25
+	INPUT	40 35
+	INPUT 90 77
+	INPUT 97 99
+	INPUT 60 30
+	INPUT 30 81
+	INPUT 16 14
+END
+SOLVER	lambda s: sum(int(x) ** 2 for x in s.split())
+DESCRIPTION
+# Soma de quadrados
+
+Escreva um programa que:
+
+-  leia dois números e
+-  imprima a soma dos seus quadrados
+
+## Input
+O seu programa deve receber uma linha com dois valores inteiros.
+
+## Output
+O seu programa deve imprimir uma linha com a soma dos quadrados desses números
+
+## Exemplo
+### Input
+	3 4
+### Output
+	25
+END
+
+# Sugestões
+
+
+POINTS 100
+END
