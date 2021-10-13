@@ -1,0 +1,37 @@
+NAME	Pythagorean Squares
+LETTER	P1
+TESTS
+	INPUT	3 4 5
+	INPUT	10 20 30
+	INPUT	70 80 106
+	INPUT   30 40 50
+	FEEDBACK	Exemples
+END
+TESTS
+	INPUT	5 12 13
+	INPUT	20 48 52
+	INPUT 12 17 19
+	INPUT 5 4 9
+	INPUT 3 7 9
+END
+CODE
+def solve(line):
+	a,b,c = [int(x) for x in line.split()]
+	import math
+	return c == math.sqrt(a*a+b*c)
+END
+SOLVER	solve
+DESCRIPTION
+Write a program that reads three integers in a single line and checks whether they are a pytagorean triple.
+# Input
+Three integers, sepparated by spaces
+# Output
+The word True or False
+# Example input
+3 4 5
+# Example output
+True
+END
+x		
+POINTS 100
+END
