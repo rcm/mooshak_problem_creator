@@ -1,5 +1,5 @@
-NAME	Problema exemplo
-LETTER	Ficha1
+NAME	Soma de quadrados
+LETTER	P1
 TESTS
 	INPUT	3 4
 	INPUT	10 20
@@ -35,10 +35,26 @@ O seu programa deve imprimir uma linha com a soma dos quadrados desses números
 	3 4
 ### Output
 	25
-END
 
 # Sugestões
+Para resolver este problema em Python, deve completar o seguinte esqueleto:
 
+	# Ler os dois valores como uma string
+	linha = input()
+	
+	# Separar por espaços
+	a, b = linha.split()
+	
+	# Converter cada um dos valores para inteiros
+	a = int(a)
+	b = int(b)
 
+	# Substitua os 3 pontos pelo que falta
+	resultado = ... # Falta completar
+	
+	# Imprimir o resultado
+	print(resultado)
+END
+x		
 POINTS 100
 END
