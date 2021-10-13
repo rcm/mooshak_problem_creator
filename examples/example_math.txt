@@ -15,10 +15,11 @@ TESTS
 	INPUT 3 7 9
 END
 CODE
+import math
 def solve(line):
 	a,b,c = [int(x) for x in line.split()]
-	import math
-	return c == math.sqrt(a*a+b*c)
+	#import math
+	return float(c) == math.sqrt(a*a+b*b)
 END
 SOLVER	solve
 DESCRIPTION
