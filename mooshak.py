@@ -75,7 +75,7 @@ class Problem:
     def __repr__(self):
         return f"""Name: {self.name}
 Folder: {self.letter}
-
+{self.debug_info}
 """
     def add_tests(self, inputs, points = None, feedback = None, show = None):
         """Add several tests
@@ -173,7 +173,12 @@ set        tests tests
                 result = fun()
                 result = str(result).rstrip()
                 print(result, file = f)
-
+            return result
+        def show(fname, field):
+            if field != "{}":
+                return f"\n{fname} {field}"
+            else:
+                return ""
         folder = self.folder
         import shutil
         if os.path.exists(f'{folder}'):
@@ -190,11 +195,21 @@ set         Test {len(self.tests)}
 """)
         create_file(f'{folder}/tests/.class.tcl', lambda: """return Tests
 """)
+        self.debug_info = ""
         for num, test in enumerate(self.tests):
             tst_dir = f'{folder}/tests/T{num + 1:03d}'
             os.makedirs(tst_dir, exist_ok = True)
             create_file(f'{tst_dir}/.data.tcl', test.data_tcl)
             create_file(f'{tst_dir}/.class.tcl', test.class_tcl)
-            create_file(f'{tst_dir}/input', lambda: self.input_to_string(test.input()))
-            create_file(f'{tst_dir}/output', test.output)
+            input_file = f'{tst_dir}/input'
+            output_file = f'{tst_dir}/output'
+            inp_txt = create_file(input_file, lambda: self.input_to_string(test.input()))
+            out_txt = create_file(output_file, test.output)
+
+            # Debugging information about each test
             
+            self.debug_info += f"""Test {num + 1:03d}{show("Feedback", test.feedback)}{show("Show", test.show)}
+Input: {inp_txt}
+Output: {out_txt}
+
+"""
