@@ -75,11 +75,18 @@ def get_function(F, line, frame):
         assert callable(ret), f"Error parsing function '{fun}'"
         return ret
 
+def import_from_current_diretory(module_name):
+    import os, importlib.util
+    spec = importlib.util.spec_from_file_location(module_name, os.path.join(os.getcwd(), module_name + ".py"))
+    foo = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(foo)
+    return foo
+
 def do_imports(F, line, frame):
     key, module = line.split()
     if 'IMPORT' not in frame:
         frame['IMPORT'] = {}
-    frame['IMPORT'][module] = importlib.import_module(module)
+    frame['IMPORT'][module] = import_from_current_diretory(module)
     return ('IMPORT', frame['IMPORT'])
     
 def parser(File, frame = None, handler = None, line = '\n'):
