@@ -183,13 +183,12 @@ set        tests tests
             else:
                 return ""
         folder = self.folder
-        import shutil
+        import shutil, markdown
         if os.path.exists(f'{folder}'):
             shutil.rmtree(f'{folder}')
         os.makedirs(f'{folder}', exist_ok = True)
         create_file(f'{folder}/.data.tcl', self.data_tcl)
         create_file(f'{folder}/.class.tcl', self.class_tcl)
-        create_file(f'{folder}/description.html', self.description)
         os.makedirs(f'{folder}/tests', exist_ok = True)
         create_file(f'{folder}/tests/.data.tcl', lambda: f"""set        Fatal {{}}
 set      Warning {{}}
@@ -199,6 +198,7 @@ set         Test {len(self.tests)}
         create_file(f'{folder}/tests/.class.tcl', lambda: """return Tests
 """)
         self.debug_info = ""
+        shown_tests = "<h1>Sample Tests</h1>"
         for num, test in enumerate(self.tests):
             tst_dir = f'{folder}/tests/T{num + 1:03d}'
             os.makedirs(tst_dir, exist_ok = True)
@@ -216,3 +216,16 @@ Input: {inp_txt}
 Output: {out_txt}
 Elapsed time: {test.elapsed:g} s
 """
+            if test.show == "yes":
+                shown_tests += f"""
+<h2>Input {num + 1}</h2>
+<pre>
+{inp_txt}
+</pre>
+<h2> Output {num + 1}</h2>
+<pre>
+{out_txt}
+</pre>
+                """
+        desc_fun = self.description() + markdown.markdown(shown_tests)
+        create_file(f'{folder}/description.html', lambda : desc_fun)
