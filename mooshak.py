@@ -180,7 +180,7 @@ set        tests tests
             else:
                 return ""
         folder = self.folder
-        import shutil
+        import shutil, time
         if os.path.exists(f'{folder}'):
             shutil.rmtree(f'{folder}')
         os.makedirs(f'{folder}', exist_ok = True)
@@ -204,12 +204,14 @@ set         Test {len(self.tests)}
             input_file = f'{tst_dir}/input'
             output_file = f'{tst_dir}/output'
             inp_txt = create_file(input_file, lambda: self.input_to_string(test.input()))
+            time_bef = time.perf_counter_ns()
             out_txt = create_file(output_file, test.output)
+            elapsed = time.perf_counter_ns() - time_bef
 
             # Debugging information about each test
             
             self.debug_info += f"""Test {num + 1:03d}{show("Feedback", test.feedback)}{show("Show", test.show)}
 Input: {inp_txt}
 Output: {out_txt}
-
+Elapsed time: {elapsed:.2e} ns
 """
