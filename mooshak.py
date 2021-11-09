@@ -198,7 +198,7 @@ set         Test {len(self.tests)}
         create_file(f'{folder}/tests/.class.tcl', lambda: """return Tests
 """)
         self.debug_info = ""
-        shown_tests = "<h1>Sample Tests</h1>"
+        shown_tests = None
         for num, test in enumerate(self.tests):
             tst_dir = f'{folder}/tests/T{num + 1:03d}'
             os.makedirs(tst_dir, exist_ok = True)
@@ -216,7 +216,9 @@ Input: {inp_txt}
 Output: {out_txt}
 Elapsed time: {test.elapsed:g} s
 """
-            if test.show == "yes":
+            if test.show == "yes" and test.feedback == "{Description}":
+                if shown_tests is None:
+                    shown_tests = "<h1>Sample Tests</h1>"
                 shown_tests += f"""
 <h2>Input {num + 1}</h2>
 <pre>
@@ -227,5 +229,8 @@ Elapsed time: {test.elapsed:g} s
 {out_txt}
 </pre>
                 """
-        desc_fun = self.description() + markdown.markdown(shown_tests)
-        create_file(f'{folder}/description.html', lambda : desc_fun)
+        if shown_tests:
+            desc_fun = lambda : self.description() + shown_tests
+        else:
+            desc_fun = self.description
+        create_file(f'{folder}/description.html', desc_fun)
