@@ -3,7 +3,7 @@ import os
 class Test:
     """This class stores a test"""
     
-    def __init__(self, Input, Output, points = 1, feedback = None, show = None):
+    def __init__(self, Input, Output, points = 1, feedback = None, show = None, elapsed = None):
         """
         Parameters
         ----------
@@ -21,6 +21,7 @@ class Test:
         self._input = Input
         self._output = Output
         self.points = points
+        self.elapsed = elapsed
         self.feedback = '{}'
         self.show = '{}'
         if feedback is not None:
@@ -116,12 +117,14 @@ Folder: {self.letter}
         feedback: str, optional
             The feedback in case the test is wrong
         """
-
+        import time
         if Output is None:
             if self.solver is None:
                 raise(Exception('No solver found'))
+            time_bef = time.perf_counter()
             Output = self.solver(Input)
-        self.tests.append(Test(Input, Output, points = points, feedback = feedback, show = show))
+            elapsed = time.perf_counter() - time_bef
+        self.tests.append(Test(Input, Output, points = points, feedback = feedback, show = show, elapsed = elapsed))
     def class_tcl(self):
         return "return Problem"
     def data_tcl(self):
@@ -180,7 +183,7 @@ set        tests tests
             else:
                 return ""
         folder = self.folder
-        import shutil, time
+        import shutil
         if os.path.exists(f'{folder}'):
             shutil.rmtree(f'{folder}')
         os.makedirs(f'{folder}', exist_ok = True)
@@ -204,14 +207,12 @@ set         Test {len(self.tests)}
             input_file = f'{tst_dir}/input'
             output_file = f'{tst_dir}/output'
             inp_txt = create_file(input_file, lambda: self.input_to_string(test.input()))
-            time_bef = time.perf_counter_ns()
             out_txt = create_file(output_file, test.output)
-            elapsed = time.perf_counter_ns() - time_bef
 
             # Debugging information about each test
             
             self.debug_info += f"""Test {num + 1:03d}{show("Feedback", test.feedback)}{show("Show", test.show)}
 Input: {inp_txt}
 Output: {out_txt}
-Elapsed time: {elapsed:.2e} ns
+Elapsed time: {test.elapsed:g} s
 """
