@@ -23,6 +23,8 @@ def get_description(F, line, frame):
 def add_input(frame, line):
     if 'INPUTS' not in frame:
         frame['INPUTS'] = []
+    if 'INPUT_TRANSF' in frame:
+        line = frame['INPUT_TRANSF'](line)
     frame['INPUTS'].append(line)
     return ('INPUTS', frame['INPUTS'])
 
@@ -48,7 +50,7 @@ def get_input_generator(F, line, frame):
 
 def get_tests(F, line, frame):
     ret = frame.get('TESTS', [])
-    fall_though = ["IMPORT"]
+    fall_though = ["IMPORT", "INPUT_TRANSF"]
     frm = {F : frame[F] for F in frame if F in fall_though}
     ret.append(parser(F, frame = frm, handler = {'INPUT' : get_input, 'LONGINPUT' : get_longinput, 'INPUTGEN' : get_input_generator}))
     return ('TESTS', ret)
@@ -135,6 +137,7 @@ def parse_problem(FHandler):
         'TESTS'         : get_tests,
         'IMPORT'        : do_imports,
         'CODE'          : do_code,
+        'INPUT_TRANSF'  : get_function,
         })
     if len(res) == 0:
         return

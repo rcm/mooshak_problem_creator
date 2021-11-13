@@ -21,7 +21,7 @@ You need to install markdown
 	- INPUT One line of input
 	- LONGINPUT One or more lines of input; it ends with an END keyword
 	- INPUTGEN An optional integer followed by a function (either a lambda function or the name of a function in an imported module)
-	- FEEDBACK A feedback message for all inputs
+	- FEEDBACK A feedback message for all inputs. If the message is Description, these tests will be automatically added to the end of the description
 	- POINTS How many points to award to each of the inputs
 	- SHOW if present, it shows these tests to the user
 - IMPORT The name of a module to import
@@ -29,6 +29,7 @@ You need to install markdown
        This creates a module and adds the code into it.
 - SOLVER This may either be a lambda function or the name of a function in an imported module
 - DESCRIPTION One or more lines, using the markdown syntax, ended with the END keyword
+- INPUT_TRANSF a function (either a lambda function or the name of a function in an imported module) that will be used to transform the inputs. This transformation is the last step before creating the input files.
 - POINTS Evenly distributes this number of points to *all tests*
 
 A file may have several problems, the first keyword being NAME and finished by END.
