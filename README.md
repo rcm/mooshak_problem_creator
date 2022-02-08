@@ -1,6 +1,9 @@
 # mooshak_python
 Something to help people to automatically create MOOshak problems in Python.
 
+## Citing this software
+The paper that originated this work can be found [here](https://drops.dagstuhl.de/opus/volltexte/2021/14225/) along with the BibTeX  for its citation.
+
 ## Installing
 You need to install markdown
 
@@ -67,5 +70,4 @@ END
 ```
 
 ## TODO
-- Something to automatically add sample input and output to the description
 - Add support to automatic correctors
