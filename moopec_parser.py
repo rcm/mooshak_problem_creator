@@ -133,6 +133,7 @@ def do_code(F, line, frame):
 def parse_problem(FHandler):
     res = parser(FHandler, handler = {
         'SOLVER'        : get_function,
+        'EXPLANATION'   : get_function,
         'DESCRIPTION'   : get_description,
         'TESTS'         : get_tests,
         'IMPORT'        : do_imports,
@@ -142,7 +143,7 @@ def parse_problem(FHandler):
     if len(res) == 0:
         return
     
-    fields = "name letter description solver".split()
+    fields = "name letter description solver explanation".split()
     dic = {field : res[field.upper()] for field in fields if field.upper() in res}
     p = mooshak.Problem(**dic)
     for T in res['TESTS']:

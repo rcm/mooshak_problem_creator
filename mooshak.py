@@ -3,7 +3,7 @@ import os
 class Test:
     """This class stores a test"""
     
-    def __init__(self, Input, Output, points = 1, feedback = None, show = None, elapsed = None):
+    def __init__(self, Input, Output, points = 1, feedback = None, explanation = None, show = None, elapsed = None):
         """
         Parameters
         ----------
@@ -24,6 +24,7 @@ class Test:
         self.elapsed = elapsed
         self.feedback = '{}'
         self.show = '{}'
+        self.explanation = explanation
         if feedback is not None:
             self.feedback = f'{{{feedback}}}'
         if show is not None:
@@ -48,7 +49,7 @@ set         Show {self.show}
         return self._output
     
 class Problem:
-    def __init__(self, name, letter = 'A', solver = None, description = None, input_to_string = None):
+    def __init__(self, name, letter = 'A', solver = None, explanation = None, description = None, input_to_string = None):
         """
         Parameters
         ----------
@@ -67,6 +68,9 @@ class Problem:
         if solver is not None and not callable(solver):
             raise Exception('solver is not callable')
         self.solver = solver
+        if explanation is not None and not callable(explanation):
+            raise Exception('explanation is not callable')
+        self.explanation = explanation
         self.description = lambda: description if description is not None else ""
         self.input_to_string = input_to_string if input_to_string is not None else str
         self.points = 100
@@ -124,7 +128,8 @@ Folder: {self.letter}
             time_bef = time.perf_counter()
             Output = self.solver(Input)
             elapsed = time.perf_counter() - time_bef
-        self.tests.append(Test(Input, Output, points = points, feedback = feedback, show = show, elapsed = elapsed))
+        Explanation = self.explanation(Input) if self.explanation is not None else None
+        self.tests.append(Test(Input, Output, points = points, feedback = feedback, show = show, explanation = Explanation, elapsed = elapsed))
     def class_tcl(self):
         return "return Problem"
     def data_tcl(self):
@@ -229,6 +234,13 @@ Elapsed time: {test.elapsed:g} s
 {out_txt}
 </pre>
                 """
+                if self.explanation is not None:
+                    shown_tests += f"""
+<h2> Explanation {num + 1}</h2>
+<pre>
+{test.explanation}
+</pre>
+                    """
         if shown_tests:
             desc_fun = lambda : self.description() + shown_tests
         else:

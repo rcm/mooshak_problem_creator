@@ -30,7 +30,8 @@ You need to install markdown
 - IMPORT The name of a module to import
 - CODE One or more lines, ending with an END keyword.
        This creates a module and adds the code into it.
-- SOLVER This may either be a lambda function or the name of a function in an imported module
+- SOLVER A Function that will be used to create the output for each test. This may either be a lambda function or the name of a function in an imported module. It takes the input.
+- EXPLANATION A function that will be used for generating an explanation for each test that is shown in the problem description. This may either be a lambda function or the name of a function in an imported module. It takes the input.
 - DESCRIPTION One or more lines, using the markdown syntax, ended with the END keyword
 - INPUT_TRANSF a function (either a lambda function or the name of a function in an imported module) that will be used to transform the inputs. This transformation is the last step before creating the input files.
 - POINTS Evenly distributes this number of points to *all tests*
@@ -70,4 +71,5 @@ END
 ```
 
 ## TODO
+- Something to automatically add sample input and output to the description
 - Add support to automatic correctors
